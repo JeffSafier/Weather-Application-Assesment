@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Weather Forecast</h1>
+
+  <%= form_with url: forecast_path, method: :post, class: "mb-5" do |f| %>
+    <div class="input-group">
+      <%= f.label :address, "Enter Address:" %>
+      <%= f.search_field :address, value: params[:address], class: "form-control" %>
+      <div>
+        <%= f.submit "Get Weather", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @daily_weather_objects.present? %>
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Forecast for <%= params[:address] %></h5>
+        <% if @is_cached %>
+          <span class="badge bg-info text-dark">Result from Cache</span>
+        <% else %>
+          <span class="badge bg-success">Live Data</span>
+        <% end %>
+      </div>
+
+      <div class="card-body text-center">
+        <h2 class="display-3">Temperature: <%= @daily_weather_objects[0].temp.round %>°F</h2>
+        <p class="text-muted">High: <%= @daily_weather_objects[0].max_temp%>° | Low: <%= @daily_weather_objects[0].min_temp%>°</p>
+        <p class="text-muted">High: <%= @daily_weather_objects[0].extended %></p>
+
+        <hr>
+
+        <div class="row mt-4">
+          <% @daily_weather_objects.each do |day| %> <div class="col">
+          <strong><%= day.date %></strong><br>
+          <%= day.temp.round %>°
+        </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
