@@ -6,6 +6,10 @@
 
 # Ignore bundler config.
 /.bundle
+# ignore all rubymine files
+/.idea/*
+
+
 
 # Ignore all environment files.
 /.env*
